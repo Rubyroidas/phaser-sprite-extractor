@@ -1,7 +1,7 @@
 This is the command line tool for splitting phaser spritesheets into separate images.
 
 # Install
-`npm install -g phaser-sprite-ectractor`
+`npm install -g phaser-sprite-extractor`
 
 # Usage:
 `phaser-sprite-extractor [-y] --json path/to/spritesheet.json --png path/to/spritesheet.png --out path/to/out/dir`
