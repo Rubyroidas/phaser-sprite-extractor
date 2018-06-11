@@ -6,6 +6,11 @@ const Canvas = require('canvas');
 const Image = Canvas.Image;
 const argv = require('yargs').argv;
 
+const outputDir = argv.out;
+if (!fs.existsSync(outputDir) && argv.y) {
+    fs.mkdirSync(outputDir, 0o744);
+}
+
 const imagePromise = new Promise((resolve, reject) => {
     const image = new Image();
     image.src = path.resolve(process.cwd(), argv.png);
@@ -37,19 +42,26 @@ Promise.all([imagePromise, jsonPromise])
                 );
 
                 return new Promise(resolve => {
-                    const fileName = path.resolve(process.cwd(), `${argv.out}/${frame.filename}`);
+                    const {name: baseName, ext: extName} = path.parse(frame.filename);
+                    const ext = extName || '.png';
+                    const baseFileName = path.resolve(process.cwd(), `${outputDir}/${baseName}`);
+                    const fileName = `${baseFileName}${ext}`;
                     const out = fs.createWriteStream(fileName);
-                    const stream = sprite.pngStream();
+                    const stream = (() => {
+                        switch (ext) {
+                            case '.jpg':
+                            case '.jpeg':
+                                return sprite.jpegStream();
+                            default:
+                                return sprite.pngStream();
+                        }
+                    })();
 
-                    stream.on('data', function (chunk) {
-                        out.write(chunk);
-                    });
-
-                    stream.on('end', function () {
-                        console.log(`saved ${fileName}`);
-                        resolve()
-                    });
-                });
+                    stream.on('data', chunk => out.write(chunk));
+                    stream.on('end', () => resolve(fileName));
+                })
+                    .then(fileName => console.log(`saved ${fileName}`))
+                    .catch(e => console.error(`Cannot save file ${fileName} due to error`, e.message));
             }));
     })
     .catch(e => console.error('sorry but error occured', e.message));

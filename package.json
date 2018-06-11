@@ -1,16 +1,32 @@
 {
   "name": "phaser-sprite-extractor",
-  "version": "0.1.1",
-  "description": "",
+  "version": "0.1.2",
+  "description": "Command line tool for splitting phaser spritesheets into separate images",
   "main": "bin/phaser-sprite-extractor.js",
   "bin": {
     "phaser-sprite-extractor": "./bin/phaser-sprite-extractor.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rubyroidas/phaser-sprite-ectractor.git"
+  },
+  "keywords": [
+    "phaser",
+    "sprite",
+    "texture",
+    "extract",
+    "spritesheet",
+    "disassemble",
+    "cli"
+  ],
   "author": "Denis Klyuev <denis.klyuev@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "canvas": "^1.6.11",
     "yargs": "^11.0.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Rubyroidas/phaser-sprite-ectractor/issues"
+  },
+  "homepage": "https://github.com/Rubyroidas/phaser-sprite-ectractor#readme"
 }
