@@ -11,3 +11,4 @@ This is the command line tool for splitting phaser spritesheets into separate im
 - `--out`: directory where output files will be saved
 
 If `out` directory doesn't exist, it's been autocreated if `-y` key appears.
+Phaser 2 hash and array both supported. Files with folder specified are supported too.
