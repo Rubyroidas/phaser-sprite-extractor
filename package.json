@@ -24,7 +24,7 @@
   "author": "Denis Klyuev <denis.klyuev@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^1.6.11",
+    "canvas": "^2.5.0",
     "yargs": "^11.0.0"
   },
   "bugs": {
