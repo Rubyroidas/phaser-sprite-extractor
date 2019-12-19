@@ -2,8 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const Canvas = require('canvas');
-const Image = Canvas.Image;
+const {createCanvas, Image} = require('canvas');
 const argv = require('yargs').argv;
 
 const outputDir = argv.out;
@@ -32,7 +31,7 @@ Promise.all([imagePromise, jsonPromise])
     .then(([image, json]) => {
         const {frames} = json;
         // console.log(frames, Object.entries(frames));
-        const canvas = new Canvas(image.width, image.height);
+        const canvas = createCanvas(image.width, image.height);
         const ctx = canvas.getContext('2d');
         ctx.drawImage(image, 0, 0);
 
@@ -43,7 +42,7 @@ Promise.all([imagePromise, jsonPromise])
         return Promise.all(Object.values(frames)
             .map((frame, frameIndex) => {
                 console.log(frame, frameFileNames[frameIndex]);
-                const sprite = new Canvas(frame.sourceSize.w, frame.sourceSize.h);
+                const sprite = createCanvas(frame.sourceSize.w, frame.sourceSize.h);
                 const spriteCtx = sprite.getContext('2d');
                 spriteCtx.clearRect(0, 0, frame.sourceSize.w, frame.sourceSize.h);
 
